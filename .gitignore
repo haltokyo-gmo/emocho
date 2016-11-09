@@ -1,0 +1,7 @@
+.DS_Store
+Thumb.db
+
+node_modules/
+
+public/css/style.css
+public/js/script.js
