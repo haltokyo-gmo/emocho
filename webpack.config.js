@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var Promise = require('es6-promise').Promise;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var plugins = [];
