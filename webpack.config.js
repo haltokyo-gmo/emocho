@@ -2,8 +2,13 @@ var webpack = require('webpack');
 var path = require('path');
 var Promise = require('es6-promise').Promise;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var bowerResolver = new webpack.ResolverPlugin(
+	new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+);
 
-var plugins = [];
+var plugins = [
+	bowerResolver
+];
 var css_loader = 'css!sass';
 if(process.env.NODE_ENV === 'production') {
 	plugins = [
@@ -13,7 +18,8 @@ if(process.env.NODE_ENV === 'production') {
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production')
 			}
-		})
+		}),
+		bowerResolver
 	];
 	css_loader = 'css?minimize!sass';
 }
@@ -25,21 +31,31 @@ module.exports = [
 			filename: 'public/js/script.js'
 		},
 		resolve: {
+			modulesDirectories: [
+				'node_modules',
+				'bower_components'
+			],
 			extensions: ['', '.js']
 		},
 		module: {
 			loaders: [
 				{
-					test: /\.js?$/,
+					test: /\.js$/,
+					exclude: /node_modules|bower_components/,
 					loader: 'babel',
 					query: {
-						presets: ['es2015']
+						presets: ['es2015'],
+						compact: true
 					},
 					exclude: /node_modules/
+				},
+				{
+					test: /bower_components(\/|\\)(PreloadJS|SoundJS|EaselJS|TweenJS)(\/|\\).*\.js$/,
+					loader: 'imports?this=>window!exports?window.createjs'
 				}
 			]
 		},
-		plugins: plugins
+		plugins: plugins,
 	},
 	{
 		entry: path.join(__dirname, 'styles/style.scss'),

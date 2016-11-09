@@ -1,0 +1,31 @@
+{
+  "name": "emocho",
+  "description": "えもっちょ",
+  "main": "index.js",
+  "authors": [
+    "Great Misawa Organization"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "emocho",
+    "えもっちょ",
+    "WebRTC",
+    "Emotion",
+    "API"
+  ],
+  "homepage": "https://github.com/haltokyo-gmo/emocho",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "TweenJS": "^0.6.2",
+    "PreloadJS": "^0.6.2",
+    "SoundJS": "^0.6.2",
+    "EaselJS": "^0.8.2",
+    "jquery": "^3.1.1"
+  }
+}

@@ -17,3 +17,4 @@ client/watch:                                     ## クライアントを自動
 
 client/deps:                                      ## クライアントの依存パッケージをダウンロード
 	npm install
+	./node_modules/.bin/bower install
