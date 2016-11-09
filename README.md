@@ -10,6 +10,12 @@
 make
 ```
 
+```bash
+make client/deps
+make client/build
+make run
+```
+
 
 ## 必要なもの
 
