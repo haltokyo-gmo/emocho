@@ -5,10 +5,7 @@
 
 ## 使い方
 
-参照
-```bash
-make
-```
+`make`参照
 
 ```bash
 make client/deps
