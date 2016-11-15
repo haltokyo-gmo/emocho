@@ -1,3 +1,3 @@
 // Retinaのフル解像度
 export const width = 1280;
-export const height = 800;
+export const height = 720;

@@ -11,10 +11,8 @@ export default function init() {
 	// カメラ映像取得
 	navigator.mediaDevices.getUserMedia({
 		video: {
-			mandatory: {
-				maxWidth:  config.width,
-				maxHeight: config.height
-			}
+			width:  config.width,
+			height: config.height
 		},
 		audio: false
 	})

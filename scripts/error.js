@@ -1,9 +1,8 @@
 export default function error(message) {
-	document.querySelectorAll('section').forEach((page) => {
-		if(page instanceof HTMLElement) {
-			page.classList.remove('active');
-		}
-	})
+	var pages = document.querySelectorAll('section');
+	for(var i=0; i<pages.length; i++) {
+		pages.item(i).classList.remove('active');
+	}
 
 	var el = document.querySelector('#page-error');
 	el.innerText = message;
