@@ -4,8 +4,6 @@ import * as config from './config';
 import * as secret from './secret';
 import error from './error';
 
-import demo from './demo';
-
 var stream;
 export function getSteam() {
 	return stream;
@@ -36,9 +34,6 @@ export default function init() {
 		error('カメラの取得に失敗しちゃいました');
 		console.error(err);
 	})
-
-	// demo
-	demo();
 }
 
 export function updateScore(emotions) {

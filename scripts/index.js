@@ -1,6 +1,7 @@
 import * as config from './config';
 import video from './page-video';
-import timeline from './page-timeline';
+
+import demo from './demo';
 
 (function() {
 	var canvas = document.querySelectorAll('canvas');
@@ -10,4 +11,7 @@ import timeline from './page-timeline';
 	}
 
 	video();
+
+	// demo
+	demo();
 })()

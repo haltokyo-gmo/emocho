@@ -21,7 +21,9 @@ section {
 	bottom: 0;
 	left: 0;
 	right: 0;
+}
 
+section, canvas {
 	transition: all .4s ease-out;
 	opacity: 0;
 	z-index: -1;
@@ -30,4 +32,10 @@ section {
 		opacity: 1;
 		z-index: 999;
 	}
+}
+
+video {
+	width: 100vw;
+	transform: rotateY(180deg);
+	z-index: 900;
 }
