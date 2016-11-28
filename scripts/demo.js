@@ -39,7 +39,7 @@ export default function demo() {
 }
 
 function displayDemo(text) {
-	var canvas = document.querySelector('#top');
+	var canvas = document.querySelector('#demo');
 	var ctx = canvas.getContext('2d');
 
 	ctx.font = 'normal 400 24px sans-serif';
