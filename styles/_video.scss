@@ -21,5 +21,6 @@
 
 	#canvas-video {
 		transform: rotateY(180deg);
+		z-index: -1;
 	}
 }

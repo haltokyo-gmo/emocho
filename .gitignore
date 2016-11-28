@@ -6,3 +6,5 @@ node_modules/
 
 public/css/style.css
 public/js/script.js
+
+scripts/secret.js
