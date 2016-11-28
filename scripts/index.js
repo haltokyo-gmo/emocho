@@ -10,5 +10,4 @@ import timeline from './page-timeline';
 	}
 
 	video();
-	timeline();
 })()

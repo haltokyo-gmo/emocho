@@ -4,6 +4,8 @@ import * as config from './config';
 import * as secret from './secret';
 import error from './error';
 
+import demo from './demo';
+
 var stream;
 export function getSteam() {
 	return stream;
@@ -34,13 +36,16 @@ export default function init() {
 		error('カメラの取得に失敗しちゃいました');
 		console.error(err);
 	})
+
+	// demo
+	demo();
 }
 
-function updateScore(emotions) {
+export function updateScore(emotions) {
 
 }
 
-function drawRectangles() {
+export function drawRectangles() {
 	var canvas = document.querySelector('#canvas-video');
 	var ctx = canvas.getContext('2d');
 	ctx.drawImage(document.querySelector('#video'), 0, 0, 1280, 720);
@@ -107,6 +112,15 @@ function drawRectangles() {
 		ctx_overlay.fillText(err.statusText, (config.width - m.width) / 2, 514);
 		ctx_overlay.closePath();
 	})
+}
+
+export function clearRectangles() {
+	var canvas_overlay = document.querySelector('#top');
+	var ctx_overlay = canvas_overlay.getContext('2d');
+
+	ctx_overlay.beginPath();
+	ctx_overlay.clearRect(0, 0, canvas_overlay.width, canvas_overlay.height);
+	ctx_overlay.closePath();
 }
 
 function maxEmotion(scores) {
