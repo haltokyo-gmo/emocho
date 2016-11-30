@@ -10,7 +10,13 @@
 	}
 
 	canvas {
-		z-index: 2;
+		opacity: 0;
+		z-index: -1;
+
+		&.active {
+			opacity: 1;
+			z-index: 999;
+		}
 	}
 
 	video {
@@ -20,7 +26,6 @@
 	}
 
 	#canvas-video {
-		transform: rotateY(180deg);
-		z-index: -1;
+		display: none;
 	}
 }

@@ -24,10 +24,12 @@ section {
 }
 
 section {
-	transition: opacity .4s ease-out;
+	transition: all .4s ease-out;
 	opacity: 0;
+	z-index: -1;
 
 	&.active {
 		opacity: 1;
+		z-index: 999;
 	}
 }

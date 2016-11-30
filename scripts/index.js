@@ -1,6 +1,6 @@
 import * as config from './config';
-import video from './page-video';
-import timeline from './page-timeline';
+import initVideo from './page-video';
+import top from './top';
 
 (function() {
 	var canvas = document.querySelectorAll('canvas');
@@ -9,6 +9,10 @@ import timeline from './page-timeline';
 		canvas.item(i).height = config.height;
 	}
 
-	video();
-	timeline();
+	// var sendImage = document.querySelector('#canvas-video');
+	// sendImage.width = config.imgWidth;
+	// sendImage.height = config.imgHeight;
+
+	initVideo();
+	// top();
 })()

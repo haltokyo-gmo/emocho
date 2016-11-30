@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import * as config from './config';
 import * as secret from './secret';
-import error from './error';
+import {pageError, canvasError} from './error';
 
 var stream;
 export function getSteam() {
@@ -14,7 +14,7 @@ export function getScore() {
 	return score;
 }
 
-export default function init() {
+export default function initVideo() {
 	// カメラ映像取得
 	navigator.mediaDevices.getUserMedia({
 		video: {
@@ -31,7 +31,7 @@ export default function init() {
 		elVideo.play();
 	})
 	.catch(function(err) {
-		error('カメラの取得に失敗しちゃいました');
+		pageError('カメラの取得に失敗しちゃいました');
 		console.error(err);
 	})
 }
@@ -40,22 +40,30 @@ function updateScore(emotions) {
 
 }
 
-function drawRectangles() {
-	var canvas = document.querySelector('#canvas-video');
-	var ctx = canvas.getContext('2d');
-	ctx.drawImage(document.querySelector('#video'), 0, 0, 1280, 720);
 
-	var base64 = canvas.toDataURL('image/jpeg');
-	var bin = atob(base64.replace(/^.*,/, ''));
+var video = document.querySelector('#video');
+var canvas = document.querySelector('#canvas-video');
+var ctx = canvas.getContext('2d');
+
+// 映像から静止画を取得する
+export function fetchImage() {
+	ctx.drawImage(video, 0, 0, config.width, config.height);
+
+	var data = canvas.toDataURL('image/jpeg');
+	var bin = atob(data.replace(/^.*,/, ''));
 	var buffer = new Uint8Array(bin.length);
-	for (var i = 0; i < bin.length; i++) {
+	for(var i=0; i<bin.length; i++) {
 		buffer[i] = bin.charCodeAt(i);
 	}
 
+	return buffer.buffer;
+}
+
+function drawRectangles() {
 	$.ajax({
 		cache: false,
 		contentType: 'application/octet-stream',
-		data: buffer.buffer,
+		data: fetchImage(),
 		dataType: 'json',
 		headers: {
 			'Ocp-Apim-Subscription-Key': secret.EMOTION_API_KEY
@@ -91,21 +99,10 @@ function drawRectangles() {
 		ctx_overlay.closePath();
 	})
 	.fail(function(err) {
-		console.error(err);
-
 		var canvas_overlay = document.querySelector('#top');
-		var ctx_overlay = canvas_overlay.getContext('2d');
 
-		ctx_overlay.font = 'normal 400 14px sans-serif';
-		var m = ctx_overlay.measureText(err.statusText);
-
-		ctx_overlay.beginPath();
-		ctx_overlay.clearRect(0, 0, canvas_overlay.width, canvas_overlay.height);
-		ctx_overlay.fillStyle = 'black';
-		ctx_overlay.fillRect((config.width - m.width) / 2, 500, m.width, 14);
-		ctx_overlay.fillStyle = 'red';
-		ctx_overlay.fillText(err.statusText, (config.width - m.width) / 2, 514);
-		ctx_overlay.closePath();
+		canvasError(canvas_overlay, err.responseText);
+		console.error(err);
 	})
 }
 
