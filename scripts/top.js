@@ -19,7 +19,7 @@ export default function top() {
 
 	timer = setInterval(() => {
 		update();
-	}, 1000)
+	}, config.interval)
 }
 
 function next() {
@@ -49,7 +49,7 @@ function update() {
 		ctx.beginPath();
 		ctx.clearRect(0, 0, config.width, config.height);
 
-		ctx.font = 'normal 400 16px sans-serif';
+		ctx.font = 'normal 600 16px sans-serif';
 		ctx.textBaseline = 'top';
 		ctx.shadowColor = '#fff';
 		ctx.shadowOffsetX = 0;

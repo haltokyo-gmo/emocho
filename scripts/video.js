@@ -59,7 +59,7 @@ export function fetchImage() {
 	return buffer.buffer;
 }
 
-function drawRectangles() {
+export function drawRectangles(canvas, ctx) {
 	$.ajax({
 		cache: false,
 		contentType: 'application/octet-stream',
@@ -73,35 +73,28 @@ function drawRectangles() {
 		url: 'https://api.projectoxford.ai/emotion/v1.0/recognize'
 	})
 	.done(function(data) {
-		console.log(data);
+		ctx.font = 'normal 400 14px sans-serif';
 
-		var canvas_overlay = document.querySelector('#top');
-		var ctx_overlay = canvas_overlay.getContext('2d');
-
-		ctx_overlay.font = 'normal 400 14px sans-serif';
-
-		ctx_overlay.beginPath();
-		ctx_overlay.clearRect(0, 0, canvas_overlay.width, canvas_overlay.height);
+		ctx.beginPath();
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		for(var i in data) {
 			var rect = data[i].faceRectangle;
 			var text = maxEmotion(data[i].scores);
 
-			ctx_overlay.strokeStyle = 'red';
-			ctx_overlay.strokeRect(config.width - rect.left - rect.width, rect.top, rect.width, rect.height);
-			var m = ctx_overlay.measureText(text);
-			ctx_overlay.fillStyle = 'white';
-			ctx_overlay.fillRect(config.width - rect.left - rect.width, rect.top - 14, m.width, 14);
-			ctx_overlay.fillStyle = 'red';
-			ctx_overlay.fillText(text, config.width - rect.left - rect.width, rect.top);
+			ctx.strokeStyle = 'red';
+			ctx.strokeRect(config.width - rect.left - rect.width, rect.top, rect.width, rect.height);
+			var m = ctx.measureText(text);
+			ctx.fillStyle = 'white';
+			ctx.fillRect(config.width - rect.left - rect.width, rect.top - 14, m.width, 14);
+			ctx.fillStyle = 'red';
+			ctx.fillText(text, config.width - rect.left - rect.width, rect.top);
 		}
 
-		ctx_overlay.closePath();
+		ctx.closePath();
 	})
 	.fail(function(err) {
-		var canvas_overlay = document.querySelector('#top');
-
-		canvasError(canvas_overlay, err.responseText);
+		canvasError(canvas, err.responseText);
 		console.error(err);
 	})
 }
