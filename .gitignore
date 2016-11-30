@@ -7,4 +7,5 @@ node_modules/
 public/css/style.css
 public/js/script.js
 
+scripts/config.js
 scripts/secret.js
