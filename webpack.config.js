@@ -1,80 +1,62 @@
-var webpack = require('webpack');
-var path = require('path');
-var Promise = require('es6-promise').Promise;
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var bowerResolver = new webpack.ResolverPlugin(
-	new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-);
+var path = require("path");
+var Promiss = require("es6-promise").Promise;
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var autoprefixer = require('autoprefixer');
 
-var plugins = [
-	bowerResolver
-];
-var css_loader = 'css!sass';
-if(process.env.NODE_ENV === 'production') {
+var plugins = [];
+var cssLoader = "css!postcss!sass";
+
+if(process.env.NODE_ENV === "production" || true) {
 	plugins = [
 		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
 		new webpack.optimize.DedupePlugin(),
-		new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify('production')
-			}
-		}),
-		bowerResolver
-	];
-	css_loader = 'css?minimize!sass';
+		new webpack.DefinePlugin({"process.env": {"NODE_ENV": JSON.stringify("production")}}),
+	]
+	cssLoader = "css?minimize!postcss!sass";
 }
 
 module.exports = [
 	{
-		entry: path.join(__dirname, 'scripts/index.js'),
+		entry: path.join(__dirname, "scripts", "index.js"),
 		output: {
-			filename: 'public/js/script.js'
+			path: path.join(__dirname, "public/js"),
+			filename: "script.js"
 		},
 		resolve: {
-			modulesDirectories: [
-				'node_modules',
-				'bower_components'
-			],
-			extensions: ['', '.js']
+			modulesDirectories: ["node_modules"],
+			extensions: ["", ".js"]
 		},
 		module: {
-			loaders: [
-				{
-					test: /\.js$/,
-					exclude: /node_modules|bower_components/,
-					loader: 'babel',
-					query: {
-						presets: ['es2015']
-					},
-					exclude: /node_modules/
-				},
-				{
-					test: /bower_components(\/|\\)(PreloadJS|SoundJS|EaselJS|TweenJS)(\/|\\).*\.js$/,
-					loader: 'imports?this=>window!exports?window.createjs'
-				}
-			]
+			loaders: [{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel",
+				query: {presets: ["es2015"]}
+			}]
 		},
-		plugins: plugins,
+		devtool: "source-map",
+		plugins: plugins
 	},
 	{
-		entry: path.join(__dirname, 'styles/style.scss'),
+		entry: path.join(__dirname, "styles", "index.scss"),
 		output: {
-			path: path.join(__dirname, 'public/css'),
-			filename: 'style.css'
+			path: path.join(__dirname, "public/css"),
+			filename: "style.css"
 		},
 		resolve: {
-			extensions: ['', '.scss']
+			modulesDirectories: ["node_modules"],
+			extensions: ["", ".css", ".scss"]
 		},
 		module: {
-			loaders: [
-				{
-					test: /\.scss$/,
-					loader: ExtractTextPlugin.extract('style', css_loader)
-				}
-			]
+			loaders: [{
+				test: /\.s?css$/,
+				exclude: /node_modules/,
+				loader: ExtractTextPlugin.extract("style", cssLoader)
+			}]
 		},
-		plugins: [
-			new ExtractTextPlugin('style.css')
-		]
+		devtool: "source-map",
+		plugins: [new ExtractTextPlugin("style.css")],
+		postcss: [autoprefixer({browsers: ["last 2 versions", "ie >= 9", "Android >= 4", "ios_saf >= 8"]})]
 	}
-];
+]

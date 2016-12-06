@@ -1,11 +1,12 @@
 .DS_Store
 Thumb.db
 
-bower_components/
 node_modules/
 
-public/css/style.css
-public/js/script.js
+public/css/*
+!public/css/.gitkeep
+public/js/*
+!public/js/.gitkeep
 
 scripts/config.js
 scripts/secret.js
