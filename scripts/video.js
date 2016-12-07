@@ -1,8 +1,8 @@
-import $ from 'jquery';
+import $ from "jquery";
 
-import * as config from './config';
-import * as secret from './secret';
-import {pageError, canvasError} from './error';
+import * as config from "./config";
+import * as secret from "./secret";
+import {pageError, canvasError} from "./error";
 
 var stream;
 export function getSteam() {
@@ -26,12 +26,12 @@ export default function initVideo() {
 	.then(function(s) {
 		stream = s;
 
-		var elVideo = document.querySelector('#video');
+		var elVideo = document.querySelector("#video");
 		elVideo.src = URL.createObjectURL(stream);
 		elVideo.play();
 	})
 	.catch(function(err) {
-		pageError('カメラの取得に失敗しちゃいました');
+		pageError("カメラの取得に失敗しちゃいました");
 		console.error(err);
 	})
 }
@@ -41,16 +41,16 @@ function updateScore(emotions) {
 }
 
 
-var video = document.querySelector('#video');
-var canvas = document.querySelector('#canvas-video');
-var ctx = canvas.getContext('2d');
+var video = document.querySelector("#video");
+var canvas = document.querySelector("#canvas-video");
+var ctx = canvas.getContext("2d");
 
 // 映像から静止画を取得する
 export function fetchImage() {
 	ctx.drawImage(video, 0, 0, config.width, config.height);
 
-	var data = canvas.toDataURL('image/jpeg');
-	var bin = atob(data.replace(/^.*,/, ''));
+	var data = canvas.toDataURL("image/jpeg");
+	var bin = atob(data.replace(/^.*,/, ""));
 	var buffer = new Uint8Array(bin.length);
 	for(var i=0; i<bin.length; i++) {
 		buffer[i] = bin.charCodeAt(i);
@@ -62,18 +62,18 @@ export function fetchImage() {
 export function drawRectangles(canvas, ctx) {
 	$.ajax({
 		cache: false,
-		contentType: 'application/octet-stream',
+		contentType: "application/octet-stream",
 		data: fetchImage(),
-		dataType: 'json',
+		dataType: "json",
 		headers: {
-			'Ocp-Apim-Subscription-Key': secret.EMOTION_API_KEY
+			"Ocp-Apim-Subscription-Key": secret.EMOTION_API_KEY
 		},
-		method: 'POST',
+		method: "POST",
 		processData: false,
-		url: 'https://api.projectoxford.ai/emotion/v1.0/recognize'
+		url: "https://api.projectoxford.ai/emotion/v1.0/recognize"
 	})
 	.done(function(data) {
-		ctx.font = 'normal 400 14px sans-serif';
+		ctx.font = "normal 400 14px sans-serif";
 
 		ctx.beginPath();
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -82,12 +82,12 @@ export function drawRectangles(canvas, ctx) {
 			var rect = data[i].faceRectangle;
 			var text = maxEmotion(data[i].scores);
 
-			ctx.strokeStyle = 'red';
+			ctx.strokeStyle = "red";
 			ctx.strokeRect(config.width - rect.left - rect.width, rect.top, rect.width, rect.height);
 			var m = ctx.measureText(text);
-			ctx.fillStyle = 'white';
+			ctx.fillStyle = "white";
 			ctx.fillRect(config.width - rect.left - rect.width, rect.top - 14, m.width, 14);
-			ctx.fillStyle = 'red';
+			ctx.fillStyle = "red";
 			ctx.fillText(text, config.width - rect.left - rect.width, rect.top);
 		}
 
@@ -113,22 +113,22 @@ function maxEmotion(scores) {
 
 	switch(max) {
 	case scores.anger:
-		return '怒り ' + scores.anger.toFixed(4);
+		return "怒り " + scores.anger.toFixed(4);
 	case scores.contempt:
-		return '軽蔑 ' + scores.contempt.toFixed(4);
+		return "軽蔑 " + scores.contempt.toFixed(4);
 	case scores.disgust:
-		return '嫌悪 ' + scores.disgust.toFixed(4);
+		return "嫌悪 " + scores.disgust.toFixed(4);
 	case scores.fear:
-		return '恐れ ' + scores.fear.toFixed(4);
+		return "恐れ " + scores.fear.toFixed(4);
 	case scores.happiness:
-		return '幸せ ' + scores.happiness.toFixed(4);
+		return "幸せ " + scores.happiness.toFixed(4);
 	case scores.neutral:
-		return '普通 ' + scores.neutral.toFixed(4);
+		return "普通 " + scores.neutral.toFixed(4);
 	case scores.sadness:
-		return '悲しみ ' + scores.sadness.toFixed(4);
+		return "悲しみ " + scores.sadness.toFixed(4);
 	case scores.surprise:
-		return '驚き ' + scores.surprise.toFixed(4);
+		return "驚き " + scores.surprise.toFixed(4);
 	default:
-		return 'なし';
+		return "なし";
 	}
 }

@@ -8,3 +8,6 @@ export const imgHeight = 450;
 
 // API叩く間隔ミリ秒
 export const interval = 1000 / 2;
+
+// 定数
+export const PI = 3.14159265359;

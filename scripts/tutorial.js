@@ -1,11 +1,11 @@
-import * as config from './config';
-import {drawRectangles} from './video';
+import * as config from "./config";
+import {drawRectangles} from "./video";
 
-var canvas = document.querySelector('#tutorial');
-var ctx = canvas.getContext('2d');
+var canvas = document.querySelector("#tutorial");
+var ctx = canvas.getContext("2d");
 
 export default function tutorial() {
-	canvas.classList.add('active');
+	canvas.classList.add("active");
 
 	setInterval(() => {
 		drawRectangles(canvas, ctx);
