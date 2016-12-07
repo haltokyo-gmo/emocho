@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>えもっちょ</title>
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/script.js"></script>
 </head>
 <body>
 	<main>
@@ -26,6 +27,259 @@
 
 		</section>
 	</main>
-	<script src="js/script.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </body>
 </html>
+<style>
+.circle {
+	width: 50px;
+	height: 50px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	background-color: #bfbfbf;
+}
+
+.hit {
+	width: 50px;
+	height: 50px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	background-color: black;
+}
+
+/*.watch {
+  margin-top: 200px;
+  background: #333;
+  border-radius: 100%;
+  color: #fff;
+  height: 80vw;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 80vw;
+}
+
+ul {
+  background: red;
+  border-radius: 100%;
+  display: block;
+  height: 6vw;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 6vw;
+  z-index: 5;
+}
+
+li {
+  height: 38vw;
+  position: absolute;
+  left: 50%;
+  bottom: 3vw;
+  margin-left: -2vw;
+  text-align: center;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+  width: 4vw;
+}
+
+li span {
+  display: block;
+  color: red;
+}
+
+li:nth-child(1) {
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+li:nth-child(1) span {
+  -webkit-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+}
+
+li:nth-child(2) {
+  -webkit-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+
+li:nth-child(2) span {
+  -webkit-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+}
+
+li:nth-child(3) {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+li:nth-child(3) span {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+li:nth-child(4) {
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+
+li:nth-child(4) span {
+  -webkit-transform: rotate(-120deg);
+  transform: rotate(-120deg);
+}
+
+li:nth-child(5) {
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+}
+
+li:nth-child(5) span {
+  -webkit-transform: rotate(-150deg);
+  transform: rotate(-150deg);
+}
+
+li:nth-child(6) {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+li:nth-child(6) span {
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+li:nth-child(7) {
+  -webkit-transform: rotate(210deg);
+  transform: rotate(210deg);
+}
+
+li:nth-child(7) span {
+  -webkit-transform: rotate(-210deg);
+  transform: rotate(-210deg);
+}
+
+li:nth-child(8) {
+  -webkit-transform: rotate(240deg);
+  transform: rotate(240deg);
+}
+
+li:nth-child(8) span {
+  -webkit-transform: rotate(-240deg);
+  transform: rotate(-240deg);
+}
+
+li:nth-child(9) {
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+li:nth-child(9) span {
+  -webkit-transform: rotate(-270deg);
+  transform: rotate(-270deg);
+}
+
+li:nth-child(10) {
+  -webkit-transform: rotate(300deg);
+  transform: rotate(300deg);
+}
+
+li:nth-child(10) span {
+  -webkit-transform: rotate(-300deg);
+  transform: rotate(-300deg);
+}
+
+li:nth-child(11) {
+  -webkit-transform: rotate(330deg);
+  transform: rotate(330deg);
+}
+
+li:nth-child(11) span {
+  -webkit-transform: rotate(-330deg);
+  transform: rotate(-330deg);
+}*/
+</style>
+<div class="target" style="display: flex;">
+<div class="hit start" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;"> </div>
+<div class="circle" style="margin: 10px;" value="return"> </div>
+</div>
+<div class="target" style="display: flex;">
+</div>
+<!-- <div class="watch">
+<ul>
+<li><span>1</span></li>
+<li><span>2</span></li>
+<li><span>3</span></li>
+<li><span>4</span></li>
+<li><span>5</span></li>
+<li><span>6</span></li>
+<li><span>7</span></li>
+<li><span>8</span></li>
+<li><span>9</span></li>
+<li><span>10</span></li>
+<li><span>11</span></li>
+<li><span>12</span></li>
+</ul>
+</div> -->
+<script>
+// ルーレットスクリプト
+var cnt = 0;
+var cnt_total = 0;
+var rand = Math.floor( Math.random() * 14);
+var stop = parseInt(rand) + 30;
+var slow = stop -7;
+
+console.log(slow);
+$(function(){
+	setTimeout('spin()');
+});
+
+function spin() {
+	if (cnt == 14)
+	{
+		$('.hit').removeClass('hit').addClass('circle');
+		$('.start').removeClass('circle').addClass('hit');
+		cnt = 0;
+	}
+	else
+	{
+		$('.hit').addClass('circle').removeClass('hit').next().addClass('hit');
+		cnt++;
+	}
+
+	if (cnt_total < slow)
+	{
+		setTimeout("spin()", 90);
+	}
+	else if (cnt_total != stop)
+	{
+    	setTimeout("spin()", 300);
+	}
+	else if (cnt_total == stop)
+	{
+		$('.hit').css({'backgroundColor': 'red'});
+	}
+	cnt_total++;
+}
+</script>
+
