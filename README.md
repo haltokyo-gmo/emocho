@@ -37,3 +37,14 @@ emocho
 |  |- *.scss
 |- server.js (Expressサーバ)
 ```
+
+
+## ライブラリ
+
+- webpack
+- Babel
+- jQuery 3
+- google-material-color
+- express
+- Sass
+- Autoprefixer
