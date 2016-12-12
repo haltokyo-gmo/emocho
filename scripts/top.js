@@ -1,99 +1,114 @@
 import $ from "jquery";
+import palette from "google-material-color";
 
 import * as config from "./config";
 import {FACE_API_KEY} from "./secret";
-import {canvasError} from "./error";
+import {displayError} from "./error";
 import {fetchImage} from "./video";
 
 import tutorial from "./tutorial";
 
 
-var video = document.querySelector("#video");
-var canvas = document.querySelector("#top");
-var stage = new createjs.Stage("top");
-var obj = {};
-var score = 0;
-var timer = null;
+const video = document.querySelector("#video");
+const page = document.querySelector("#page-top");
+const heading = document.querySelector("#page-top h1");
+const display = document.querySelector("#top-display");
+const text = document.querySelector("#top-text");
+const circle = document.querySelector("#top-svg circle");
 
+var score = -1;
+var timer = null;
+var cnt = 0;
 
 // トップ画面の初期化処理
 export default function top() {
-	canvas.classList.add("active");
+	page.classList.add("active");
+	heading.classList.add("active");
+	display.classList.remove("active");
+	text.classList.remove("hidden");
+	circle.classList.remove("finish");
 
-	init();
-
-	timer = setInterval(() => {
-		updateScore();
-
-		var scoreRadian = score * 2 * config.PI;
-		var score255 = score * 255;
-		var colorFilter = {
-			redMultiplier: 1,
-			greenMultiplier: 1,
-			blueMultiplier: 1
-		}
-
-		createjs.Tween.get(obj["arc"], {override: true})
-			.to({endAngle: scoreRadian}, 300, createjs.Ease.bounceInOut);
-		createjs.Tween.get(obj["filter"], {override: true})
-			.to(colorFilter, 300, createjs.Ease.quadIn);
-	}, config.interval)
-	createjs.Ticker.addEventListener("tick", () => {
-		obj["shape"].cache(-200, -200, 500, 500);
-		stage.update();
-	});
+	timer = setInterval(nonMeasure, config.interval);
 }
 
 // トップ画面の片付け＆チュートリアル画面の初期化
 function next() {
-	canvas.classList.remove("active");
 	clearInterval(timer);
 	timer = null;
-	createjs.Ticker.removeEventListener("tick", stage);
 
-	tutorial();
+	// 笑顔スタートアニメーション
+	text.classList.add("hidden");
+	circle.setAttribute("style", "");
+	circle.classList.add("finish");
+
+	circle.addEventListener("transitionend", nextFunc);
 }
 
-// 描画オブジェクトの初期化
-function init() {
-	var heading = new createjs.Text("笑顔でスタート！", "20px sans-serif", "#fff");
-	heading.shadow = new createjs.Shadow("rgba(0,0,0,.87)", 0, 0, 5);
-	heading.x = (config.width - heading.getMeasuredWidth()) / 2;
-	heading.y = (config.height - heading.getMeasuredHeight()) / 2;
-	heading.alpha = 0;
+function nextFunc() {
+	page.classList.remove("active");
+	tutorial();
+	circle.removeEventListener("transitionend", nextFunc);
+}
 
-	var graphics = new createjs.Graphics();
-	var arc = new createjs.Graphics.Arc(200, 200, 150, 0, 0, 0);
-	var strokeStyle = new createjs.Graphics.StrokeStyle(10);
-	var stroke = new createjs.Graphics.Stroke("#fff");
+// 計測前
+function nonMeasure() {
+	updateScore();
 
-	graphics.append(createjs.Graphics.beginCmd);
-	graphics.append(arc);
-	graphics.append(strokeStyle);
-	graphics.append(stroke);
+	if(score !== -1) {
+		cnt++;
+		if(cnt > config.threshold) {
+			heading.classList.remove("active");
+			display.classList.add("active");
 
-	var shape = new createjs.Shape(graphics);
-	shape.regX = shape.regY = 200;
-	shape.x = config.width / 2;
-	shape.y = config.height / 2;
-	shape.rotation = 270;
-	shape.scaleY = -1;
+			cnt = 0;
+			clearInterval(timer);
+			timer = null;
+			time = setInterval(measure, config.interval);
+		}
+	}
+}
 
-	var filter = new createjs.ColorFilter();
-	shape.filters = [filter];
+// 計測中
+function measure() {
+	updateScore();
 
-	createjs.Tween.get(heading, {loop: true})
-		.to({alpha: 1}, 1000, createjs.Ease.quadIn)
-		.to({alpha: 0}, 1000, createjs.Ease.quadIn);
+	console.log(score);
 
-	stage.addChild(heading);
-	stage.addChild(shape);
+	if(score === -1) {
+		cnt++;
+		if(cnt > config.threshold) {
+			heading.classList.add("active");
+			display.classList.remove("active");
 
-	obj["heading"] = heading;
-	obj["arc"] = arc;
-	obj["strokeStyle"] = strokeStyle;
-	obj["shape"] = shape;
-	obj["filter"] = filter;
+			cnt = 0;
+			clearInterval(timer);
+			timer = null;
+			time = setInterval(nonMeasure, config.interval);
+		}
+		return;
+	}
+
+	if(score > 0.9) {
+		next();
+		return;
+	}
+
+	circle.style.strokeDasharray = getCircumference() * score + " 1000";
+	if(score > 0.6) {
+		circle.style.stroke = palette.get("Orange");
+	} else if(score > 0.4) {
+		circle.style.stroke = palette.get("Green");
+	} else if(score > 0.2) {
+		circle.style.stroke = palette.get("Blue");
+	} else {
+		circle.style.stroke = palette.get("White");
+	}
+}
+
+// stroke-dasharrayの設定のため、circleオブジェクトの円周を計算する
+function getCircumference() {
+	const r = circle.getAttribute("r");
+	return 2 * r * config.PI;
 }
 
 // 笑顔スコアをアップデートする
@@ -111,14 +126,18 @@ function updateScore() {
 		url: "https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=smile"
 	})
 	.done((data) => {
-		var sum = 0;
-		for(var i in data) {
-			sum += data[i].faceAttributes.smile;
+		if(data.length > 0) {
+			var sum = 0;
+			for(var i in data) {
+				sum += data[i].faceAttributes.smile;
+			}
+			score = sum / data.length;
+		} else {
+			score = -1;
 		}
-		score = sum / data.length;
 	})
 	.fail((err) => {
-		canvasError(canvas, "エラー");
+		displayError("通信エラー");
 		console.error(err);
 	})
 }

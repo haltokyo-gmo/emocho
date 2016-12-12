@@ -5,14 +5,16 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var autoprefixer = require('autoprefixer');
 
 var plugins = [];
+var devTool = "source-map";
 var cssLoader = "css!postcss!sass";
 
-if(process.env.NODE_ENV === "production" || true) {
+if(process.env.NODE_ENV === "production") {
 	plugins = [
 		new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.DefinePlugin({"process.env": {"NODE_ENV": JSON.stringify("production")}}),
 	]
+	devTool = "";
 	cssLoader = "css?minimize!postcss!sass";
 }
 
@@ -35,7 +37,7 @@ module.exports = [
 				query: {presets: ["es2015"]}
 			}]
 		},
-		devtool: "source-map",
+		devtool: devTool,
 		plugins: plugins
 	},
 	{
@@ -55,7 +57,7 @@ module.exports = [
 				loader: ExtractTextPlugin.extract("style", cssLoader)
 			}]
 		},
-		devtool: "source-map",
+		devtool: devTool,
 		plugins: [new ExtractTextPlugin("style.css")],
 		postcss: [autoprefixer({browsers: ["last 2 versions", "ie >= 9", "Android >= 4", "ios_saf >= 8"]})]
 	}

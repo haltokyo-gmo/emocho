@@ -12,7 +12,5 @@ var sendImage = document.querySelector("#canvas-video");
 sendImage.width = config.imgWidth;
 sendImage.height = config.imgHeight;
 
-createjs.Ticker.setFPS(60);
-
 initVideo();
 top();

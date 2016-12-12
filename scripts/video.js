@@ -47,7 +47,7 @@ var ctx = canvas.getContext("2d");
 
 // 映像から静止画を取得する
 export function fetchImage() {
-	ctx.drawImage(video, 0, 0, config.width, config.height);
+	ctx.drawImage(video, 0, 0, config.imgWidth, config.imgHeight);
 
 	var data = canvas.toDataURL("image/jpeg");
 	var bin = atob(data.replace(/^.*,/, ""));

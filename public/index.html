@@ -3,29 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>えもっちょ</title>
+	<title>EMOCHO</title>
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<header></header>
 	<main>
-		<section id="page-video" class="active">
-			<canvas id="top"></canvas>
-			<canvas id="tutorial"></canvas>
-			<canvas id="roulette"></canvas>
-			<canvas id="game"></canvas>
-			<canvas id="share"></canvas>
-			<video id="video"></video>
-			<canvas id="canvas-video"></canvas>
+		<section id="page-top" class="partial">
+			<h1 class="partial active"><img src="img/logo.svg"></h1>
+			<div id="top-display" class="partial">
+				<p id="top-text">笑顔でスタート！</p>
+				<svg id="top-svg" viewBox="0 0 50 50">
+					<circle cx="25" cy="25" r="15" />
+				</svg>
+			</div>
 		</section>
 
-		<section id="page-timeline">
-
-		</section>
-
-		<section id="page-error">
-
-		</section>
+		<!-- <canvas id="tutorial"></canvas>
+		<canvas id="roulette"></canvas>
+		<canvas id="game"></canvas>
+		<canvas id="share"></canvas> -->
+		<video id="video"></video>
+		<canvas id="canvas-video" class="hidden"></canvas>
+		<section id="page-error"></section>
 	</main>
+	<footer><p id="error-text"></p></footer>
+
 	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 	<script src="js/script.js" async defer></script>
 </body>

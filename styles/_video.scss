@@ -1,31 +1,13 @@
-#page-video {
-	background-color: #000;
+video {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
 
-	canvas, video {
-		position: absolute;
-		top: 40px;
-		bottom: 40px;
-		left: 0;
-		right: 0;
-	}
-
-	canvas {
-		opacity: 0;
-		z-index: -1;
-
-		&.active {
-			opacity: 1;
-			z-index: 999;
-		}
-	}
-
-	video {
-		z-index: 1;
-		width: 100vw;
-		transform: rotateY(180deg);
-	}
-
-	#canvas-video {
-		display: none;
-	}
+video {
+	z-index: 1;
+	width: 100vw;
+	transform: rotateY(180deg);
 }
