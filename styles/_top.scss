@@ -61,15 +61,17 @@
 		stroke: palette(White);
 		stroke-width: 2px;
 		stroke-opacity: 1;
+		stroke-dasharray: 0 500;
 		stroke-linecap: round;
 
-		transition: all 2s ease-out;
+		transition: all .2s ease-out;
 
 		&.finish {
 			stroke: palette(Orange);
 			stroke-width: 20px;
 			stroke-opacity: 0;
-			stroke-dasharray: none;
+			stroke-dasharray: 500 500;
+			transition: all 1s ease-in;
 		}
 	}
 }
