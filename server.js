@@ -1,9 +1,5 @@
 var express = require('express');
-var cors = require('cors');
 var app = express();
-
-// CORSを許可する
-app.use(cors());
 
 app.use(express.static('public'));
 

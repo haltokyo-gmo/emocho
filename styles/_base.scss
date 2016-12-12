@@ -10,9 +10,22 @@ html, body {
 	outline: 0;
 }
 
-main {
+body {
 	width: 100vw;
 	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+header, footer {
+	min-height: 40px;
+	background-color: palette(Black);
+}
+
+main {
+	flex: 1;
+	overflow: hidden;
+	position: relative;
 }
 
 section {
@@ -23,11 +36,17 @@ section {
 	right: 0;
 }
 
-section {
-	transition: opacity .4s ease-out;
+.partial {
+	transition: all .4s ease-out;
 	opacity: 0;
+	z-index: -1;
 
 	&.active {
 		opacity: 1;
+		z-index: 999;
 	}
+}
+
+.hidden {
+	display: none;
 }
