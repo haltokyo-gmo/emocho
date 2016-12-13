@@ -1,9 +1,143 @@
-import $ from 'jquery';
-import createjs from 'EaselJS';
+import $ from "jquery";
+import palette from "google-material-color";
 
-import config from './config';
+import * as config from "./config";
+import {FACE_API_KEY} from "./secret";
+import {displayError} from "./error";
+import {fetchImage} from "./video";
+
+import tutorial from "./tutorial";
 
 
-export default function init() {
-	// stub
+const video = document.querySelector("#video");
+const page = document.querySelector("#page-top");
+const heading = document.querySelector("#page-top h1");
+const display = document.querySelector("#top-display");
+const text = document.querySelector("#top-text");
+const circle = document.querySelector("#top-svg circle");
+
+var score = -1;
+var timer = null;
+var cnt = 0;
+
+// トップ画面の初期化処理
+export default function top() {
+	page.classList.add("active");
+	heading.classList.add("active");
+	display.classList.remove("active");
+	text.classList.remove("hidden");
+	circle.classList.remove("finish");
+
+	timer = setInterval(nonMeasure, config.interval);
+}
+
+// トップ画面の片付け＆チュートリアル画面の初期化
+function next() {
+	clearInterval(timer);
+	timer = null;
+
+	// 笑顔スタートアニメーション
+	text.classList.add("hidden");
+	circle.setAttribute("style", "");
+	circle.classList.add("finish");
+
+	circle.addEventListener("transitionend", nextFunc);
+}
+
+function nextFunc() {
+	page.classList.remove("active");
+	tutorial();
+	circle.removeEventListener("transitionend", nextFunc);
+}
+
+// 計測前
+function nonMeasure() {
+	updateScore();
+
+	if(score !== -1) {
+		cnt++;
+		if(cnt > config.threshold) {
+			heading.classList.remove("active");
+			display.classList.add("active");
+
+			cnt = 0;
+			clearInterval(timer);
+			timer = null;
+			time = setInterval(measure, config.interval);
+		}
+	}
+}
+
+// 計測中
+function measure() {
+	updateScore();
+
+	console.log(score);
+
+	if(score === -1) {
+		cnt++;
+		if(cnt > config.threshold) {
+			heading.classList.add("active");
+			display.classList.remove("active");
+
+			cnt = 0;
+			clearInterval(timer);
+			timer = null;
+			time = setInterval(nonMeasure, config.interval);
+		}
+		return;
+	}
+
+	if(score > 0.9) {
+		next();
+		return;
+	}
+
+	circle.style.strokeDasharray = getCircumference() * score + " 1000";
+	if(score > 0.6) {
+		circle.style.stroke = palette.get("Orange");
+	} else if(score > 0.4) {
+		circle.style.stroke = palette.get("Green");
+	} else if(score > 0.2) {
+		circle.style.stroke = palette.get("Blue");
+	} else {
+		circle.style.stroke = palette.get("White");
+	}
+}
+
+// stroke-dasharrayの設定のため、circleオブジェクトの円周を計算する
+function getCircumference() {
+	const r = circle.getAttribute("r");
+	return 2 * r * config.PI;
+}
+
+// 笑顔スコアをアップデートする
+function updateScore() {
+	$.ajax({
+		cache: false,
+		contentType: "application/octet-stream",
+		data: fetchImage(),
+		dataType: "json",
+		headers: {
+			"Ocp-Apim-Subscription-Key": FACE_API_KEY
+		},
+		method: "POST",
+		processData: false,
+		url: "https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=smile"
+	})
+	.done((data) => {
+		if(data.length > 0) {
+			var sum = 0;
+			for(var i in data) {
+				sum += data[i].faceAttributes.smile;
+			}
+			score = sum / data.length;
+		} else {
+			score = -1;
+		}
+	})
+	.fail((err) => {
+		displayError("通信エラー");
+		console.error(err);
+	})
 }
