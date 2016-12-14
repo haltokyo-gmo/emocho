@@ -94,7 +94,7 @@ function measure() {
 		}
 
 		// グラフの数値を更新する
-		scoreGraph.style.strokeDashoffset = 100 + score * 100;
+		scoreGraph.style.strokeDasharray = score * 100 + " 100";
 		const r = score * 255;
 		const g = score * 255 / 2;
 		const b = score > 0.5 ? 0 : (-2 * score + 1) * 255;
