@@ -9,7 +9,6 @@
 
 #page-top {
 	h1 {
-		margin: 0;
 		position: absolute;
 		top: 50%;
 		left: 33%;
@@ -35,14 +34,13 @@
 }
 
 #top-text {
-	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 
 	color: palette(White);
-	text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary);
+	text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
 	font-size: 20px;
 
 	animation: top-text 1s ease infinite alternate;
@@ -57,14 +55,14 @@
 	transform: translate(-50%, -50%) rotate(270deg);
 
 	circle {
-		fill: transparent;
+		fill: none;
 		stroke: palette(White);
 		stroke-width: 2px;
 		stroke-opacity: 1;
 		stroke-dasharray: 0 500;
 		stroke-linecap: round;
 
-		transition: all .2s ease-out;
+		transition: all .5s ease-out;
 
 		&.finish {
 			stroke: palette(Orange);

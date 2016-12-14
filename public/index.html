@@ -14,22 +14,41 @@
 			<div id="top-display" class="partial">
 				<p id="top-text">笑顔でスタート！</p>
 				<svg id="top-svg" viewBox="0 0 50 50">
-					<circle cx="25" cy="25" r="15" />
+					<circle cx="25" cy="25" r="15"></circle>
 				</svg>
 			</div>
 		</section>
 
-		<!-- <canvas id="tutorial"></canvas>
-		<canvas id="roulette"></canvas>
-		<canvas id="game"></canvas>
-		<canvas id="share"></canvas> -->
+		<section id="page-tutorial" class="partial"></section>
+
+		<seciton id="page-roulette" class="partial"></seciton>
+
+		<section id="page-game" class="partial">
+			<div id="game-countdown" class="partial">
+				<svg viewBox="0 0 500 500">
+					<circle cx="250" cy="250" r="100"></circle>
+				</svg>
+				<p id="game-countdown-text"></p>
+			</div>
+			<div id="game" class="partial">
+				<div id="game-graph">
+					<svg viewBox="0 0 20 120">
+						<rect x="5" y="5" width="10" height="110" rx="5" ry="5"></rect>
+						<line x1="10" y1="10" x2="10" y2="110"></line>
+					</svg>
+				</div>
+				<p id="game-timer-text"></p>
+			</div>
+		</section>
+
+		<section id="page-share" class="partial"></section>
+
 		<video id="video"></video>
 		<canvas id="canvas-video" class="hidden"></canvas>
 		<section id="page-error"></section>
 	</main>
 	<footer><p id="error-text"></p></footer>
 
-	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 	<script src="js/script.js" async defer></script>
 </body>
 </html>

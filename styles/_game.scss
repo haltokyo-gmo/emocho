@@ -1,0 +1,95 @@
+@keyframes countdown {
+  0% {
+		stroke-dashoffset: 1884.95559215;
+  }
+  100% {
+		stroke-dashoffset: 942.477796077;
+  }
+}
+
+#game-countdown {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	svg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+
+	  width: 500px;
+	  height: 500px;
+
+	  transform: translate(-50%, -50%) rotate(270deg);
+	}
+
+	circle {
+	  fill: none;
+	  stroke: palette(White);
+		stroke-width: 15px;
+		stroke-linecap: round;
+	  stroke-dasharray: 942.477796077 942.477796077;
+
+	  &.active {
+			animation: countdown 1s linear infinite;
+		}
+	}
+}
+#game-countdown-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	color: palette(White);
+	text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
+	font-size: 32px;
+	font-weight: bold;
+}
+
+#game {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+#game-graph {
+	position: absolute;
+	top: 50px;
+	bottom: 50px;
+	right: 40px;
+	text-align: right;
+
+	svg {
+		height: 100%;
+	}
+
+	rect {
+		fill: none;
+		stroke: palette(White);
+	}
+
+	line {
+		fill: none;
+		stroke-width: 8px;
+		stroke-linecap: round;
+		stroke-dasharray: 100 100;
+		stroke-dashoffset: 100;
+
+		transition: all .5s ease-out;
+	}
+}
+#game-timer-text {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+
+	color: palette(White);
+	text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
+	font-size: 32px;
+	font-weight: bold;
+}
