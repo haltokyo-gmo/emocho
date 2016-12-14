@@ -72,7 +72,6 @@ function nonMeasure() {
 function measure() {
 	updateScore();
 
-	console.log(score);
 
 	if(score === -1) {
 		cnt++;
