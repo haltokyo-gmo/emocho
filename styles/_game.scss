@@ -58,28 +58,18 @@
 }
 #game-graph {
 	position: absolute;
-	top: 50px;
 	bottom: 50px;
-	right: 40px;
-	text-align: right;
+	left: 0;
+	right: 0;
 
 	svg {
-		height: 100%;
+		width: 100%;
 	}
-
-	rect {
-		fill: none;
-		stroke: palette(White);
-	}
-
-	line {
-		fill: none;
-		stroke-width: 8px;
-		stroke-linecap: round;
-		stroke-dasharray: 0 100;
-
-		transition: all .5s ease-out;
-	}
+}
+#game-graph-bg {
+	x: 500px;
+	width: 0;
+	transition: all .2s ease-out;
 }
 #game-timer-text {
 	position: absolute;

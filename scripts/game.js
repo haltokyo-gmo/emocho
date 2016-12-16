@@ -4,7 +4,7 @@ import palette from "google-material-color";
 import * as config from "./config";
 import {EMOTION_API_KEY} from "./secret";
 import {displayError} from "./error";
-import {fetchImage} from "./video";
+import {getStream, fetchImage} from "./video";
 import share from "./share";
 
 
@@ -16,6 +16,7 @@ const countdownCircle = document.querySelector("#game-countdown circle");
 const countdownText = document.querySelector("#game-countdown-text");
 const scoreGraph = document.querySelector("#game-graph line");
 const gameCountdown = document.querySelector("#game-timer-text");
+const gameScoreText = document.querySelector("#game-score-text");
 
 // 最新のスコアと画像
 var score = 0;
@@ -37,6 +38,12 @@ var maxMoment = {
 	image: null
 };
 
+// 動画保存
+var stream = getStream();
+var recorder;
+var video = [];
+var videoURL = "";
+
 
 export default function game(target) {
 	page.classList.add("active");
@@ -49,16 +56,21 @@ export default function game(target) {
 	maxMoment.score = 0;
 	maxMoment.image = null;
 	scoreGraph.setAttribute("style", "");
+	recorder = null;
+	video = [];
+	videoURL = "";
 
 	clearInterval(timer);
 	timer = setInterval(countdown, 1000);
 }
 
 function next() {
+	recorder.stop();
+
 	page.classList.remove("active");
 	scoreGraph.setAttribute("style", "");
 
-	share();
+	share(video, videoURL);
 }
 
 // 開始前カウントダウン
@@ -77,6 +89,8 @@ function countdown() {
 
 		clearInterval(timer);
 		timer = setInterval(measure, config.interval);
+
+		beginRecord();
 	}
 }
 
@@ -94,13 +108,15 @@ function measure() {
 		}
 
 		// グラフの数値を更新する
+		gameScoreText.innerText = Math.floor(score * 100);
+
 		scoreGraph.style.strokeDasharray = score * 100 + " 100";
 		const r = score * 255;
 		const g = score * 255 / 2;
 		const b = score > 0.5 ? 0 : (-2 * score + 1) * 255;
 		scoreGraph.style.stroke = "rgb(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ")";
 
-		cnt--;
+		// cnt--;
 	} else {
 		clearInterval(timer);
 
@@ -155,4 +171,27 @@ function getMaxEmotion(scores) {
 		scores.sadness,
 		scores.surprise
 	);
+}
+
+// 動画保存開始
+function beginRecord() {
+	recorder = new MediaRecorder(stream, {
+		videoBitsPerSecond: 512 * 1024, // 512kbps
+		mimeType: "video/mp4"
+	});
+
+	recorder.onstop = (e) => {
+		var blob = new Blob(video, {"type": "video/mp4"});
+		video = [];
+		videoURL = URL.createObjectURL(blob);
+
+		recorder.onstop = null;
+		recorder.ondataavailable = null;
+	}
+
+	recorder.ondataavailable = (e) => {
+		video.push(e.data);
+	}
+
+	recorder.start();
 }

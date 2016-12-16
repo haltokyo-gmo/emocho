@@ -12,7 +12,7 @@ const ctx = canvas.getContext("2d");
 
 
 var stream;
-export function getSteam() {
+export function getStream() {
 	return stream;
 }
 
