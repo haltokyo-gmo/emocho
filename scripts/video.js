@@ -43,7 +43,7 @@ export function fetchImage() {
 	ctx.drawImage(video, 0, 0, config.imgWidth, config.imgHeight);
 
 	var data = canvas.toDataURL("image/jpeg");
-	var bin = atob(data.replace(/^.*,/, ""));
+	var bin = atob(data.split(",")[1]);
 	var buffer = new Uint8Array(bin.length);
 	for(var i=0; i<bin.length; i++) {
 		buffer[i] = bin.charCodeAt(i);

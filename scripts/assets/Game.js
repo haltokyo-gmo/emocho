@@ -86,7 +86,7 @@ export default class Game {
 		// タイマー (開始前、ゲーム)
 		this.timer = null;
 		this.durationStart = 3;
-		this.durationGame = 7;
+		this.durationGame = config.gameDuration;
 
 		// 開始前処理
 		this.count = this.durationStart;

@@ -6,6 +6,9 @@ export const height = 720;
 export const imgWidth = 960;
 export const imgHeight = 540;
 
+// プレイ時間
+export const gameDuration = 10;
+
 // 録画の品質
 export const recordWidth = 640;
 export const recordHeight = 360;
