@@ -1,5 +1,4 @@
 import game from "./game";
-
 const page = document.querySelector("#page-roulette");
 
 export default function roulette() {
@@ -54,6 +53,7 @@ export default function roulette() {
       }
       cnt_total++;
     }
+
 }
 
 function next(emotion) {

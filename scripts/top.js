@@ -5,10 +5,10 @@ import * as config from "./config";
 import {FACE_API_KEY} from "./secret";
 import {displayError} from "./error";
 import {fetchImage} from "./video";
-
 import tutorial from "./tutorial";
 
 
+// 操作対象のDOM
 const video = document.querySelector("#video");
 const page = document.querySelector("#page-top");
 const heading = document.querySelector("#page-top h1");
@@ -16,9 +16,13 @@ const display = document.querySelector("#top-display");
 const text = document.querySelector("#top-text");
 const circle = document.querySelector("#top-svg circle");
 
+// 最新の笑顔スコア
 var score = -1;
+
+// タイマー変数と、計測開始のしきい値カウンター
 var timer = null;
 var cnt = 0;
+
 
 // トップ画面の初期化処理
 export default function top() {
@@ -28,13 +32,13 @@ export default function top() {
 	text.classList.remove("hidden");
 	circle.classList.remove("finish");
 
+	clearInterval(timer);
 	timer = setInterval(nonMeasure, config.interval);
 }
 
 // トップ画面の片付け＆チュートリアル画面の初期化
 function next() {
 	clearInterval(timer);
-	timer = null;
 
 	// 笑顔スタートアニメーション
 	text.classList.add("hidden");
@@ -45,9 +49,9 @@ function next() {
 }
 
 function nextFunc() {
+	circle.removeEventListener("transitionend", nextFunc);
 	page.classList.remove("active");
 	tutorial();
-	circle.removeEventListener("transitionend", nextFunc);
 }
 
 // 計測前
@@ -62,8 +66,7 @@ function nonMeasure() {
 
 			cnt = 0;
 			clearInterval(timer);
-			timer = null;
-			time = setInterval(measure, config.interval);
+			timer = setInterval(measure, config.interval);
 		}
 	}
 }
@@ -71,7 +74,6 @@ function nonMeasure() {
 // 計測中
 function measure() {
 	updateScore();
-
 
 	if(score === -1) {
 		cnt++;
@@ -81,8 +83,7 @@ function measure() {
 
 			cnt = 0;
 			clearInterval(timer);
-			timer = null;
-			time = setInterval(nonMeasure, config.interval);
+			timer = setInterval(nonMeasure, config.interval);
 		}
 		return;
 	}
@@ -92,7 +93,7 @@ function measure() {
 		return;
 	}
 
-	circle.style.strokeDasharray = getCircumference() * score + " 1000";
+	circle.style.strokeDasharray = getCircumference() * score + " 500";
 	if(score > 0.6) {
 		circle.style.stroke = palette.get("Orange");
 	} else if(score > 0.4) {
@@ -107,7 +108,7 @@ function measure() {
 // stroke-dasharrayの設定のため、circleオブジェクトの円周を計算する
 function getCircumference() {
 	const r = circle.getAttribute("r");
-	return 2 * r * config.PI;
+	return 2 * r * Math.PI;
 }
 
 // 笑顔スコアをアップデートする
@@ -138,5 +139,5 @@ function updateScore() {
 	.fail((err) => {
 		displayError("通信エラー");
 		console.error(err);
-	})
+	});
 }

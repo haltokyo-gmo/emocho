@@ -15,34 +15,64 @@
 			<div id="top-display" class="partial">
 				<p id="top-text">笑顔でスタート！</p>
 				<svg id="top-svg" viewBox="0 0 50 50">
-					<circle cx="25" cy="25" r="15" />
+					<circle cx="25" cy="25" r="15"></circle>
 				</svg>
 			</div>
 		</section>
 
-    <section id="page-roulette" class="partial">
-      <div class="watch">
-        <ul>
-          <li><span><div class="hit start">怒 <input type="hidden" class="emotion" value="anger"></div></span></li>
-          <li><span><div class="circle">蔑 <input type="hidden" class="emotion" value="contempt"></div></span></li>
-          <li><span><div class="circle">嫌 <input type="hidden" class="emotion" value="disgust"></div></span></li>
-          <li><span><div class="circle">恐 <input type="hidden" class="emotion" value="fear"></div></span></li>
-          <li><span><div class="circle">幸 <input type="hidden" class="emotion" value="happiness"></div></span></li>
-          <li><span><div class="circle">素 <input type="hidden" class="emotion" value="neutral"></div></span></li>
-          <li><span><div class="circle">悲 <input type="hidden" class="emotion" value="sadness"></div></span></li>
-          <li><span><div class="circle">驚 <input type="hidden" class="emotion" value="surprise"></div></span></li>
-        </ul>
-      </div>
-    </section>
+        <section id="page-roulette" class="partial">
+          <div class="watch">
+            <ul>
+              <li><span><div class="hit start">怒 <input type="hidden" class="emotion" value="anger"></div></span></li>
+              <li><span><div class="circle">蔑 <input type="hidden" class="emotion" value="contempt"></div></span></li>
+              <li><span><div class="circle">嫌 <input type="hidden" class="emotion" value="disgust"></div></span></li>
+              <li><span><div class="circle">恐 <input type="hidden" class="emotion" value="fear"></div></span></li>
+              <li><span><div class="circle">幸 <input type="hidden" class="emotion" value="happiness"></div></span></li>
+              <li><span><div class="circle">素 <input type="hidden" class="emotion" value="neutral"></div></span></li>
+              <li><span><div class="circle">悲 <input type="hidden" class="emotion" value="sadness"></div></span></li>
+              <li><span><div class="circle">驚 <input type="hidden" class="emotion" value="surprise"></div></span></li>
+            </ul>
+          </div>
+        </section>
 
 		<!-- <canvas id="tutorial"></canvas>
 		<canvas id="roulette"></canvas>
 		<canvas id="game"></canvas>
 		<canvas id="share"></canvas> -->
+		<section id="page-tutorial" class="partial"></section>
+
+		<seciton id="page-roulette" class="partial"></seciton>
+
+		<section id="page-game" class="partial">
+			<div id="game-countdown" class="partial">
+				<svg viewBox="0 0 500 500">
+					<circle cx="250" cy="250" r="100"></circle>
+				</svg>
+				<p id="game-countdown-text"></p>
+			</div>
+
+			<div id="game" class="partial">
+				<p id="game-timer-text"></p>
+				<canvas id="game-effect"></canvas>
+				<canvas id="game-graph"></canvas>
+				<canvas id="game-record" class="hidden"></canvas>
+			</div>
+		</section>
+
+		<section id="page-share" class="partial">
+			<img id="share-img">
+			<video id="share-video" loop></video>
+			<p>Twitterにシェアしますか？</p>
+			<button type="button" id="share-btn-yes">シェアする</button>
+			<button type="button" id="share-btn-no">シェアしない</button>
+		</section>
+
 		<video id="video"></video>
 		<canvas id="canvas-video" class="hidden"></canvas>
 		<section id="page-error"></section>
 	</main>
+
+
 	<footer><p id="error-text"></p></footer>
 	<script src="js/script.js" async defer></script>
 </body>
