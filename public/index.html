@@ -30,24 +30,32 @@
 				</svg>
 				<p id="game-countdown-text"></p>
 			</div>
+
 			<div id="game" class="partial">
-				<div id="game-graph">
-					<svg viewBox="0 0 1000 100">
-						<rect id="game-graph-bg"></rect>
-					</svg>
-				</div>
 				<p id="game-timer-text"></p>
+				<canvas id="game-effect"></canvas>
+				<canvas id="game-graph"></canvas>
+				<canvas id="game-record" class="hidden"></canvas>
 			</div>
 		</section>
 
-		<section id="page-share" class="partial"></section>
+		<section id="page-share" class="partial">
+			<img id="share-img">
+			<video id="share-video" loop></video>
+			<p>Twitterにシェアしますか？</p>
+			<button type="button" id="share-btn-yes">シェアする</button>
+			<button type="button" id="share-btn-no">シェアしない</button>
+		</section>
 
 		<video id="video"></video>
 		<canvas id="canvas-video" class="hidden"></canvas>
 		<section id="page-error"></section>
 	</main>
+
+
 	<footer><p id="error-text"></p></footer>
 
+	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
 	<script src="js/script.js" async defer></script>
 </body>
 </html>

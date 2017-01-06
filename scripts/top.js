@@ -108,7 +108,7 @@ function measure() {
 // stroke-dasharrayの設定のため、circleオブジェクトの円周を計算する
 function getCircumference() {
 	const r = circle.getAttribute("r");
-	return 2 * r * config.PI;
+	return 2 * r * Math.PI;
 }
 
 // 笑顔スコアをアップデートする

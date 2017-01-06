@@ -1,6 +1,8 @@
 import $ from "jquery";
 import palette from "google-material-color";
 
+import Game from "./assets/Game";
+
 import * as config from "./config";
 import {EMOTION_API_KEY} from "./secret";
 import {displayError} from "./error";
@@ -14,12 +16,13 @@ const elCountdown = document.querySelector("#game-countdown");
 const elGame = document.querySelector("#game");
 const countdownCircle = document.querySelector("#game-countdown circle");
 const countdownText = document.querySelector("#game-countdown-text");
-const scoreGraph = document.querySelector("#game-graph line");
 const gameCountdown = document.querySelector("#game-timer-text");
-const gameScoreText = document.querySelector("#game-score-text");
+const gameGraph = document.querySelector("#game-graph");
+const stageGraph = new createjs.Stage("game-graph");
 
 // 最新のスコアと画像
 var score = 0;
+var scores = [];
 var image;
 
 // タイマー変数とカウントダウン用のカウンター
@@ -39,38 +42,45 @@ var maxMoment = {
 };
 
 // 動画保存
-var stream = getStream();
 var recorder;
 var video = [];
 var videoURL = "";
+
+// CreateJSオブジェクト
+var objGraph = {};
 
 
 export default function game(target) {
 	page.classList.add("active");
 	elCountdown.classList.add("active");
 	elGame.classList.remove("active");
+
+	var game = new Game(target, next);
+	return;
+
 	score = 0;
+	scores = [];
 	image = null;
 	cnt = 3;
 	targetEmotion = target || "free";
 	maxMoment.score = 0;
 	maxMoment.image = null;
-	scoreGraph.setAttribute("style", "");
 	recorder = null;
 	video = [];
 	videoURL = "";
+
+	gameGraph.width = config.width;
+	gameGraph.height = config.graphHeight;
+
+	objGraph = {};
 
 	clearInterval(timer);
 	timer = setInterval(countdown, 1000);
 }
 
-function next() {
-	recorder.stop();
-
+function next(img, video, url) {
 	page.classList.remove("active");
-	scoreGraph.setAttribute("style", "");
-
-	share(video, videoURL);
+	share(img, video, url);
 }
 
 // 開始前カウントダウン
@@ -87,6 +97,9 @@ function countdown() {
 		elGame.classList.add("active");
 		cnt = 7 * (1000 / config.interval);
 
+		initGraph();
+		createjs.Ticker.addEventListener("tick", stageGraph);
+
 		clearInterval(timer);
 		timer = setInterval(measure, config.interval);
 
@@ -99,7 +112,7 @@ function measure() {
 	if(cnt > 0) {
 		gameCountdown.innerText = Math.floor(cnt / (1000 / config.interval));
 
-		updateScore();
+		updateScores();
 
 		// 最大スコアが更新されたら、画像を差し替える
 		if(score > maxMoment.score) {
@@ -107,14 +120,8 @@ function measure() {
 			maxMoment.image = image;
 		}
 
-		// グラフの数値を更新する
-		gameScoreText.innerText = Math.floor(score * 100);
-
-		scoreGraph.style.strokeDasharray = score * 100 + " 100";
-		const r = score * 255;
-		const g = score * 255 / 2;
-		const b = score > 0.5 ? 0 : (-2 * score + 1) * 255;
-		scoreGraph.style.stroke = "rgb(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ")";
+		// グラフを更新する
+		renderGraph();
 
 		// cnt--;
 	} else {
@@ -125,7 +132,7 @@ function measure() {
 }
 
 // 感情スコアをアップデートする
-function updateScore() {
+function updateScores() {
 	image = fetchImage();
 
 	$.ajax({
@@ -142,15 +149,17 @@ function updateScore() {
 	})
 	.done((data) => {
 		if(data.length > 0) {
-			var sum = 0;
 			for(var i in data) {
 				if(targetEmotion === "free") {
-					sum += getMaxEmotion(data[i].scores);
+					scores[i] = getMaxEmotion(data[i].scores);
 				} else {
-					sum += data[i].scores[targetEmotion];
+					scores[i] = data[i].scores[targetEmotion];
 				}
 			}
-			score = sum / data.length;
+			// 配列の中身の合計を配列の要素数で割る
+			score = scores.reduce((a, b) => a + b) / scores.length;
+
+			console.log(score);
 		}
 	})
 	.fail((err) => {
@@ -175,13 +184,13 @@ function getMaxEmotion(scores) {
 
 // 動画保存開始
 function beginRecord() {
-	recorder = new MediaRecorder(stream, {
+	recorder = new MediaRecorder(getStream(), {
 		videoBitsPerSecond: 512 * 1024, // 512kbps
-		mimeType: "video/mp4"
+		mimeType: "video/webm"
 	});
 
 	recorder.onstop = (e) => {
-		var blob = new Blob(video, {"type": "video/mp4"});
+		var blob = new Blob(video, {"type": "video/webm"});
 		video = [];
 		videoURL = URL.createObjectURL(blob);
 
@@ -194,4 +203,65 @@ function beginRecord() {
 	}
 
 	recorder.start();
+}
+
+// グラフ初期化
+function initGraph() {
+	objGraph = {};
+	objGraph.circles = [];
+
+	// グラフの背景矩形
+	var gBg = new createjs.Graphics();
+	objGraph.bgRect = new createjs.Graphics.Rect(config.width / 2 - 50, 0, 100, config.graphHeight);
+	gBg.append(createjs.Graphics.beginCmd);
+	gBg.append(objGraph.bgRect);
+	gBg.append(new createjs.Graphics.Fill(palette.get("Black", "Dividers")));
+
+	objGraph.bg = new createjs.Shape(gBg);
+	objGraph.bg.shadow = new createjs.Shadow(palette.get("Black", "Secondary"), 0, 1, 4);
+
+	// 合計スコアのグラフ
+	var gTotal = new createjs.Graphics();
+	gTotal.append(createjs.Graphics.beginCmd);
+	gTotal.append(new createjs.Graphics.Circle(config.width / 2, config.graphHeight / 2, config.graphHeight / 2 - 10));
+	gTotal.append(new createjs.Graphics.StrokeStyle(1));
+	gTotal.append(new createjs.Graphics.Stroke(palette.get("White")));
+
+	objGraph.total = {};
+
+	objGraph.total.graph = {
+		rect: new createjs.Graphics.Rect(5, config.graphHeight - 5, config.graphHeight - 10, config.graphHeight - 10),
+		fill: new createjs.Graphics.Fill(palette.get("Light Blue"))
+	};
+
+	var gTotalGraph = new createjs.Graphics();
+	gTotalGraph.append(createjs.Graphics.beginCmd);
+	gTotalGraph.append(objGraph.total.graph.rect);
+	gTotalGraph.append(objGraph.total.graph.fill);
+
+	objGraph.total.graph.shape = new createjs.Shape(gTotalGraph);
+	objGraph.total.graph.shape.mask = new createjs.Shape(new createjs.Graphics().beginFill("black").drawCircle(config.graphHeight / 2, config.graphHeight / 2, config.graphHeight / 2 - 11));
+	objGraph.total.graph.shape.x = (config.width - config.graphHeight - 10) / 2;
+	// objGraph.total.graph.shape.x = (config.width - config.graphHeight - 10) / 2;
+
+	objGraph.total.border = new createjs.Shape(gTotal);
+
+	objGraph.total.label = new createjs.Text("TOTAL", "20px", palette.get("White"));
+	objGraph.total.label.x = config.width / 2 - 25;
+	objGraph.total.label.y = 25;
+
+	stageGraph.addChild(objGraph.bg);
+	stageGraph.addChild(objGraph.total.border);
+	stageGraph.addChild(objGraph.total.graph.shape);
+	stageGraph.addChild(objGraph.total.label);
+}
+
+// グラフ描画
+function renderGraph() {
+	createjs.Tween.get(objGraph.total.graph.rect, {override: true})
+		.to({y: config.graphHeight - 5 - (config.graphHeight - 10) * score}, 500, createjs.Ease.cubicOut);
+
+	if(scores.length !== objGraph.circles.length) {
+
+	}
 }

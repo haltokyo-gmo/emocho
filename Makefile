@@ -10,10 +10,10 @@ run:                                    ## サーバを起動
 	node server.js
 
 build:                                  ## クライアントをビルド
-	NODE_ENV=production ./node_modules/.bin/webpack --progress --color --cache false
+	NODE_ENV=production ./node_modules/.bin/webpack --progress --color
 
 watch:                                  ## クライアントを自動コンパイル
-	NODE_ENV=development ./node_modules/.bin/webpack --progress --color --watch --cache false
+	NODE_ENV=development ./node_modules/.bin/webpack --progress --color --watch
 
 deps:                                   ## クライアントの依存パッケージをダウンロード
 	npm install

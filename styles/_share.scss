@@ -1,0 +1,59 @@
+#share-img {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 480px;
+
+	box-shadow: 0 0 8px palette(Black, Secondary);
+}
+
+#share-video {
+	position: absolute;
+	top: 100px;
+	right: 100px;
+	width: 480px;
+
+	box-shadow: 0 0 8px palette(Black, Secondary);
+}
+
+#page-share {
+	p {
+		position: absolute;
+		bottom: 220px;
+		left: 0;
+		right: 0;
+		text-align: center;
+
+		color: palette(White);
+		font-size: 20px;
+		text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
+	}
+
+	button {
+		text-align: center;
+		border: 0;
+
+		color: palette(White);
+		font-size: 20px;
+		padding: 15px;
+		text-shadow: 0 0 2px palette(Black, Secondary);
+
+		border-radius: 5px;
+	}
+}
+
+#share-btn-yes {
+	background-color: palette(Red);
+
+	position: absolute;
+	bottom: 150px;
+	right: 51%;
+}
+
+#share-btn-no {
+	background-color: palette(Grey);
+
+	position: absolute;
+	bottom: 150px;
+	left: 51%;
+}
