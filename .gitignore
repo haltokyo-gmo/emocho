@@ -10,3 +10,8 @@ public/js/*
 
 scripts/config.js
 scripts/secret.js
+
+public/vendor/
+
+ffmpeg
+*.php

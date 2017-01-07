@@ -53,6 +53,8 @@
 		border-radius: 5px;
 		box-shadow: 0 0 4px palette(Black, Secondary);
 
+		cursor: pointer;
+
 		position: absolute;
 		bottom: 140px;
 
@@ -65,12 +67,25 @@
 	}
 }
 
+@keyframes upload-btn {
+	0% {
+		background-color: palette(Red);
+	}
+	100% {
+		background-color: palette(Red, 300);
+	}
+}
+
 #share-btn-yes {
 	background-color: palette(Red, 700);
 	right: 51%;
 
 	&:hover {
 		background-color: palette(Red);
+	}
+
+	&.animate {
+		animation: upload-btn .4s ease-in-out alternate infinite;
 	}
 }
 

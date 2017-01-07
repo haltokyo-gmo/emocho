@@ -24,7 +24,7 @@ export default function initVideo() {
 			width:  config.width,
 			height: config.height
 		},
-		audio: false
+		audio: true
 	})
 	.then(function(s) {
 		stream = s;

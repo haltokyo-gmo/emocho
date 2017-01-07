@@ -36,26 +36,53 @@ function uploadHandler(img, video) {
   }
   var imgBlob = new Blob([ab], {type: 'image/jpeg'});
 
+	var fd = new FormData();
+	fd.append("image", imgBlob);
+	fd.append("video", video);
+
 	return (e) => {
+		if(btnYes.classList.contains("animate")) {
+			return;
+		}
+		btnAnimateOn();
+
 		$.ajax({
 			cache: false,
-			// contentType: "application/json",
-			data: {
-				"image": imgBlob,
-				"video": video
-			},
-			dataType: "json",
+			contentType: false,
+			data: fd,
+			// dataType: "json",
 			method: "POST",
 			processData: false,
-			url: "http://localhost:5555/upload"
+			url: "http://localhost:8888/emocho/upload.php"
 		})
 		.done((data) => {
 			console.log(data);
+			btnAnimateOff("シェアしました");
+			btnYes.removeEventListener("click", handler);
 		})
-		.fail((err) => {
+		.fail((err, err2, err3) => {
 			console.error(err);
+			console.error(err2);
+			console.error(err3);
+			btnAnimateOff("アップロードに失敗しました");
 		})
+		.catch((err, err2, err3) => {
+			console.error(err);
+			console.error(err2);
+			console.error(err3);
+			btnAnimateOff("アップロードに失敗しました");
+		});
 	};
+}
+
+function btnAnimateOn() {
+	btnYes.classList.add("animate");
+	btnYes.innerText = "アップロード中";
+}
+
+function btnAnimateOff(text) {
+	btnYes.classList.remove("animate");
+	btnYes.innerText = text;
 }
 
 function seeyou() {
@@ -68,4 +95,6 @@ function seeyou() {
 	videoDOM.src = "";
 
 	handler = null;
+
+	end();
 }
