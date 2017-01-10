@@ -11,5 +11,8 @@ export default function roulette() {
 
 function next() {
 	page.classList.remove("active");
-	game("happiness");
+
+	const emotions = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
+
+	game(emotions[Math.floor(Math.random() * emotions.length)]);
 }

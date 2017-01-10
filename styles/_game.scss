@@ -7,6 +7,17 @@
   }
 }
 
+#game-emotion {
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+
+	color: palette(White);
+	text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
+	font-size: 24px;
+}
+
 #game-countdown {
 	position: absolute;
 	top: 0;

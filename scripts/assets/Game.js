@@ -13,6 +13,8 @@ const CANVAS_GRAPH = document.querySelector("#game-graph");
 const CANVAS_RECORD = document.querySelector("#game-record");
 const VIDEO = document.querySelector("#video");
 
+const emotionDOM = document.querySelector("#game-emotion");
+
 export default class Game {
 	constructor(emotion, nextFunc) {
 		// this bind
@@ -34,6 +36,35 @@ export default class Game {
 
 		// 計測対象の感情
 		this.emotion = emotion || "free";
+
+		switch(this.emotion) {
+			case "anger":
+				emotionDOM.innerText = "怒ってる顔";
+				break;
+			case "contempt":
+				emotionDOM.innerText = "軽蔑してる顔";
+				break;
+			case "disgust":
+				emotionDOM.innerText = "嫌がってる顔";
+				break;
+			case "fear":
+				emotionDOM.innerText = "怖がってる顔";
+				break;
+			case "hapiness":
+				emotionDOM.innerText = "幸せな顔";
+				break;
+			case "neutral":
+				emotionDOM.innerText = "真顔";
+				break;
+			case "sadness":
+				emotionDOM.innerText = "悲しい顔";
+				break;
+			case "surprise":
+				emotionDOM.innerText = "驚いてる顔";
+				break;
+			default:
+				emotionDOM.innerText = "フリーモード";
+		}
 
 		// CreateJSのインスタンス
 		this.gameStage = new createjs.Stage(CANVAS_EFFECT.id);
@@ -147,7 +178,7 @@ export default class Game {
 		const leftEdge = config.width / 2 - (this.scoreGraph.length + 1) * config.graphHeight / 2;
 
 		for(var i in this.scoreGraph) {
-			this.scoreGraph[i].moveTo(leftEdge + config.graphHeight * (i + 1));
+			this.scoreGraph[i].moveTo(leftEdge + config.graphHeight * (parseInt(i) + 1.0));
 		}
 		this.totalScoreGraph.moveTo(config.width - leftEdge);
 

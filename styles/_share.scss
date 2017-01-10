@@ -1,27 +1,28 @@
 #share-bg {
 	position: absolute;
-	top: 100px;
-	left: 80px;
-	right: 80px;
-	height: 520px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 80vw;
+	height: 70vh;
 
 	background-color: palette(Black, Secondary);
 }
 
 #share-img {
 	position: absolute;
-	top: 140px;
-	left: 120px;
-	width: 480px;
+	top: 8vh;
+	left: 5vw;
+	width: 34vw;
 
 	box-shadow: 0 0 8px palette(Black, Secondary);
 }
 
 #share-video {
 	position: absolute;
-	top: 140px;
-	right: 120px;
-	width: 480px;
+	top: 8vh;
+	right: 5vw;
+	width: 34vw;
 
 	box-shadow: 0 0 8px palette(Black, Secondary);
 }
@@ -29,9 +30,9 @@
 #page-share {
 	p {
 		position: absolute;
-		bottom: 210px;
-		left: 0;
-		right: 0;
+		top: 43vh;
+		left: 5vw;
+		right: 5vw;
 		text-align: center;
 
 		color: palette(White);
@@ -47,7 +48,7 @@
 		font-size: 22px;
 		font-weight: bold;
 		padding: 15px 0;
-		width: 250px;
+		width: 20vw;
 		text-shadow: 0 0 2px palette(Black, Primary);
 
 		border-radius: 5px;
@@ -56,7 +57,7 @@
 		cursor: pointer;
 
 		position: absolute;
-		bottom: 140px;
+		top: 53vh;
 
 		transition: all .2s ease;
 
@@ -78,7 +79,7 @@
 
 #share-btn-yes {
 	background-color: palette(Red, 700);
-	right: 51%;
+	left: 15vw;
 
 	&:hover {
 		background-color: palette(Red);
@@ -86,12 +87,13 @@
 
 	&.animate {
 		animation: upload-btn .4s ease-in-out alternate infinite;
+		transform: none;
 	}
 }
 
 #share-btn-no {
 	background-color: palette(Grey, 700);
-	left: 51%;
+	right: 15vw;
 
 	&:hover {
 		background-color: palette(Grey);
