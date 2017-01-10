@@ -86,8 +86,8 @@ export default class Game {
 		this.stream = this.recorderCanvas.captureStream(config.recordFPS);
 		this.stream.addTrack(getStream().getAudioTracks()[0]);
 		this.recorder = new MediaRecorder(this.stream, {
-			videoBitsPerSecond: 512 * 1024, // 512kbps
-			audioBitsPerSecond: 64 * 1024, // 64kbps
+			videoBitsPerSecond: config.videoQuality * 1024,
+			audioBitsPerSecond: config.audioQuality * 1024,
 			mimeType: "video/webm"
 		});
 		this.videoChunks = [];

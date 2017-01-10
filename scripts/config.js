@@ -13,6 +13,8 @@ export const gameDuration = 10;
 export const recordWidth = 640;
 export const recordHeight = 360;
 export const recordFPS = 24;
+export const videoQuality = 768; // video kbps
+export const audioQuality = 64; // audio kbps
 
 // API叩く間隔ミリ秒
 export const interval = 1000 / 2;

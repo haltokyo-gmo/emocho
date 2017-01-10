@@ -8,8 +8,28 @@
 		padding: 20px;
 		background-color: palette(Black, Secondary);
 
+		z-index: 10;
+
 		color: palette(White);
 		font-size: 24px;
 		text-shadow: 0 0 4px palette(Black, Primary), 0 0 2px palette(Black, Primary), 0 0 1px palette(Black, Primary);
+	}
+}
+
+#end-photos {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	z-index: 5;
+
+	display: flex;
+	flex-wrap: wrap;
+
+	img {
+		width: 25%;
+		height: 25%;
 	}
 }

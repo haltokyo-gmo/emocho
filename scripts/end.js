@@ -22,7 +22,14 @@ function fetchImages() {
 		url: "http://localhost:8888/emocho/getImages.php"
 	})
 	.done((data) => {
-		console.log(data);
+		const imgs = document.querySelectorAll("#end-photos img");
+
+		for(const i in data) {
+			if(i >= 16) {
+				break;
+			}
+			imgs.item(i).src = data[i];
+		}
 	})
 	.fail((err, err2, err3) => {
 		console.error(err);

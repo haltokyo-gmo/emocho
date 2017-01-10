@@ -8,4 +8,7 @@ sendImage.width = config.imgWidth;
 sendImage.height = config.imgHeight;
 
 initVideo();
-top();
+// top();
+
+import end from "./end";
+end();
