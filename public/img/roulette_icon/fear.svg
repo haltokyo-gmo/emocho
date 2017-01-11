@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 101 101" style="enable-background:new 0 0 101 101;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#4B479A;stroke:#000000;stroke-miterlimit:10;}
-</style>
-<rect x="0.5" y="0.5" class="st0" width="100" height="100"/>
+	 y="0px" viewBox="0 0 486.6 459.7" enable-background="new 0 0 486.6 459.7" xml:space="preserve">
+<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" x1="330.7" y1="101.4" x2="267.4" y2="120.5"/>
+<rect x="0" fill="#543B8B" width="486.7" height="459.9"/>
+<text transform="matrix(1 0 0 1 140.3453 365.1352)" fill="#FFFFFF" font-family="'YuMin-Demibold-83pv-RKSJ-H'" font-size="35">怖がってる顔</text>
+<path fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" d="M137.4,235.6c0,0,25.8-24.9,55.7,0s53.2,0,53.2,0
+	s24.9-24.9,51.6,0c26.6,24.9,57.7,0,57.7,0"/>
+<g>
+	<path fill="#FFFFFF" d="M195.9,139.1c0,3.2-2.7,6.1-5.7,6.1s-5.4-2.9-5.4-6.1c0-3.2,2.4-5.8,5.4-5.8S195.9,135.9,195.9,139.1z
+		 M291.9,139.1c0,3.2-2.7,6.1-5.7,6.1s-5.4-2.9-5.4-6.1c0-3.2,2.4-5.8,5.4-5.8S291.9,135.9,291.9,139.1z"/>
+	<path fill="#FFFFFF" d="M286.2,146.7c-3.7,0-6.9-3.5-6.9-7.6c0-4,3.1-7.3,6.9-7.3c3.9,0,7.2,3.3,7.2,7.3
+		C293.4,143.1,290.1,146.7,286.2,146.7z M286.2,134.8c-2.2,0-3.9,1.9-3.9,4.3c0,2.4,1.8,4.6,3.9,4.6c2.2,0,4.2-2.2,4.2-4.6
+		C290.4,136.8,288.5,134.8,286.2,134.8z M190.2,146.7c-3.7,0-6.9-3.5-6.9-7.6c0-4,3.1-7.3,6.9-7.3c3.9,0,7.2,3.3,7.2,7.3
+		C197.4,143.1,194,146.7,190.2,146.7z M190.2,134.8c-2.2,0-3.9,1.9-3.9,4.3c0,2.4,1.8,4.6,3.9,4.6c2.2,0,4.2-2.2,4.2-4.6
+		C194.4,136.8,192.4,134.8,190.2,134.8z"/>
+</g>
+<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" x1="155.8" y1="122.8" x2="219.1" y2="103.7"/>
+<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" x1="329.1" y1="122.8" x2="265.8" y2="103.7"/>
 </svg>

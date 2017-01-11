@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 101 101" style="enable-background:new 0 0 101 101;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#489337;stroke:#000000;stroke-miterlimit:10;}
-</style>
-<rect x="0.5" y="0.5" class="st0" width="100" height="100"/>
+	 y="0px" viewBox="0 0 486.6 459.7" enable-background="new 0 0 486.6 459.7" xml:space="preserve">
+<rect x="-1.1" y="0.6" fill="#838384" width="486.7" height="459.9"/>
+<g>
+	<path fill="#FFFFFF" d="M199,135.6c0,3.2-2.7,6.1-5.7,6.1s-5.4-2.9-5.4-6.1c0-3.2,2.4-5.8,5.4-5.8S199,132.4,199,135.6z
+		 M295.1,135.6c0,3.2-2.7,6.1-5.7,6.1s-5.4-2.9-5.4-6.1c0-3.2,2.4-5.8,5.4-5.8S295.1,132.4,295.1,135.6z"/>
+	<path fill="#FFFFFF" d="M289.4,143.2c-3.7,0-6.9-3.5-6.9-7.6c0-4,3.1-7.3,6.9-7.3c3.9,0,7.2,3.3,7.2,7.3
+		C296.6,139.6,293.2,143.2,289.4,143.2z M289.4,131.3c-2.2,0-3.9,1.9-3.9,4.3c0,2.4,1.8,4.6,3.9,4.6c2.2,0,4.2-2.2,4.2-4.6
+		C293.6,133.3,291.6,131.3,289.4,131.3z M193.3,143.2c-3.7,0-6.9-3.5-6.9-7.6c0-4,3.1-7.3,6.9-7.3c3.9,0,7.2,3.3,7.2,7.3
+		C200.5,139.6,197.1,143.2,193.3,143.2z M193.3,131.3c-2.2,0-3.9,1.9-3.9,4.3c0,2.4,1.8,4.6,3.9,4.6c2.2,0,4.2-2.2,4.2-4.6
+		C197.5,133.3,195.5,131.3,193.3,131.3z"/>
+</g>
+<text transform="matrix(1 0 0 1 209.2154 365.7355)" fill="#FFFFFF" font-family="'YuMin-Demibold-83pv-RKSJ-H'" font-size="35">真顔</text>
+<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="136.5" y1="237.6" x2="350.2" y2="237.6"/>
 </svg>
